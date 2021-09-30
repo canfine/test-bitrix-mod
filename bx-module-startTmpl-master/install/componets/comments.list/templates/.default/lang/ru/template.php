@@ -1,3 +1,0 @@
-<?
-$MESS['MAIN_BLOCK_TEAM_TEMPLATE_TITLE'] = 'Новости';
-?>

@@ -51,10 +51,9 @@ try {
         'DESC' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_SORT_DESC')
     ];
 
-    $arComponentParameters = array(
-        'GROUPS' => array(
-        ),
-        'PARAMETERS' => array(
+    $arComponentParameters = [
+        'GROUPS' => array(),
+        'PARAMETERS' => [
             'COMMENT_IBLOCK_TYPE' => [
                 'PARENT' => 'BASE',
                 'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_IBLOCK_TYPE'),
@@ -69,20 +68,20 @@ try {
                 'TYPE' => 'LIST',
                 'VALUES' => $iblocksCode
             ],
-            "COMMENT_ELEMENT_ID" => array(
+            "COMMENT_ELEMENT_ID" => [
 			"PARENT" => "BASE",
 			"NAME" => GetMessage("IBLOCK_ELEMENT_ID"),
 			"TYPE" => "STRING",
 			"DEFAULT" => '={$_REQUEST["ELEMENT_ID"]}',
-		),
-            "IBLOCK_TYPE" => array(
+		] ,
+            "IBLOCK_TYPE" => [
                 "PARENT" => "BASE",
                 "NAME" => GetMessage("IBLOCK_TYPE"),
                 "TYPE" => "LIST",
                 "ADDITIONAL_VALUES" => "Y",
                 "VALUES" => $arIBlockType,
                 "REFRESH" => "Y",
-            ),
+            ] ,
             "IBLOCK_ID" => [
                 "PARENT" => "BASE",
                 "NAME" => GetMessage("IBLOCK_IBLOCK"),
@@ -155,8 +154,8 @@ try {
             'CACHE_TIME' => [
                 'DEFAULT' => 3600
             ],
-        )
-    );
+        ]
+    ];
 } catch (Main\LoaderException $e) {
     ShowError($e->getMessage());
 }

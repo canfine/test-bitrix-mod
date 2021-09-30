@@ -43,18 +43,18 @@ class CommentFormComponent extends CBitrixComponent {
         $this->arResult['ERROR'] = array();
         if ((!empty($_REQUEST['NAME'])) && (!empty($_REQUEST['sessid'])) && (empty($_REQUEST['USER']))) {
 
-            $el = new CIBlockElement;
+            //$el = new \CIBlockElement;
             $section_id = false;
             foreach ($this->arResult['PROPERTY_DATAS'] as $sendProps) {
                 $this->sendFields[$sendProps['CODE']] = strip_tags($_POST[$sendProps['CODE']]);
             }
-            $fields = array(
+            $fields = [
                 "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
                 "PROPERTY_VALUES" => $this->sendFields,
                 "NAME" => strip_tags($_REQUEST['NAME']),
-            );
+        ];
 
-            if ($ID = $el->Add($fields)) {
+            if ($ID = \CIBlockElement::Add($fields)) {
                 array_push($this->arResult['ERROR'], "NOT_ERROR");
                 $this->arResult["OK_MESSAGE"] = $this->arParams['OK_TEXT'];
 
@@ -93,10 +93,10 @@ class CommentFormComponent extends CBitrixComponent {
      */
     protected function getPropsResult() {
 
-        $this->arResult[] = array(
+        $this->arResult[] = [
             'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
             'PROPERTY_IDS' => $this->arParams['PROPERTY_CODES'],
-        );
+        ];
 
         $this->arResult['PROPERTY_DATAS'] = array();
         $properties = CIBlockProperty::GetList(
