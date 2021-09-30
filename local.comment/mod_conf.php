@@ -7,7 +7,7 @@
  * типы инфоблоков
  */
 $arIblockTypes = [
-    'FORMS' => [
+    'TEXT' => [
         'SECTIONS' => 'N',
         'SORT' => '100',
         'LANG' => [
@@ -49,7 +49,7 @@ $arConfig = [
     'name' => $moduleName,
     'ns' => $moduleNS,
     'nsTables' => $moduleNS . '\Tables',
-    'prefix' => 'local_modulename',
+    'prefix' => 'local_comment',
     'arIblockTypes' => $arIblockTypes,
     'arIblocks' => $arIblocks,
 ];

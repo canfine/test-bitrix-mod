@@ -113,6 +113,11 @@ class local_comment extends CModule
      * @param bool $notDocumentRoot
      * @return mixed|string
      */
+    protected function getDB() {
+        global $DB;
+        $db=$DB;
+        return $db;
+    }
     protected function getPath($notDocumentRoot = false) {
         return  ($notDocumentRoot)
             ? preg_replace('#^(.*)\/(local|bitrix)\/modules#','/$2/modules',dirname(__DIR__))
@@ -309,7 +314,14 @@ class local_comment extends CModule
     }
 
 
-
+    /**
+     * проверяет подключение необходиимых модулей
+     * @throws LoaderException
+     */
+    protected function checkModules() {
+        if (!Loader::includeModule('iblock'))
+            throw new Main\LoaderException(Loc::getMessage('STANDARD_ELEMENTS_LIST_CLASS_IBLOCK_MODULE_NOT_INSTALLED'));
+    }
     /**
      * Работа с инфоблоками. (Данные из mod_conf загружаются в конструкторе)
      * @return bool
@@ -317,7 +329,7 @@ class local_comment extends CModule
      */
     public function InstallIblocks() {
         $db = $this->getDB();
-
+        $this->checkModules();
         // создаем типы инфоблоков
         foreach ($this->arIblockTypes as $IBTypeCODE => $arIblockType) {
 
