@@ -12,7 +12,7 @@ use Bitrix\Sale\Internals\OrderPropsTable;
 
 Loc::loadMessages(__FILE__);
 
-class local_modexample extends CModule
+class iblockComment extends CModule
 {
     /** @var string */
     public $MODULE_ID;
