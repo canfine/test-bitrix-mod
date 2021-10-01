@@ -41,7 +41,7 @@ class CommentFormComponent extends CBitrixComponent {
     public function postAction() {
         // POST формы
         $this->arResult['ERROR'] = array();
-        if ((!empty($_REQUEST['NAME'])) && (!empty($_REQUEST['sessid'])) && (empty($_REQUEST['USER']))) {
+        if ((!empty($_REQUEST['NAME'])) && (!empty($_REQUEST['sessid'])) ) {
 
             //$el = new \CIBlockElement;
             $section_id = false;
@@ -53,17 +53,13 @@ class CommentFormComponent extends CBitrixComponent {
                 "PROPERTY_VALUES" => $this->sendFields,
                 "NAME" => strip_tags($_REQUEST['NAME']),
         ];
-
-            if ($ID = \CIBlockElement::Add($fields)) {
+            $element= new CIBlockElement;
+            if ($ID = $element->Add($fields)) {
                 array_push($this->arResult['ERROR'], "NOT_ERROR");
                 $this->arResult["OK_MESSAGE"] = $this->arParams['OK_TEXT'];
 
-                $this->notificationModer();
+                //$this->notificationModer();
             }
-        } else {
-            // Бот антикапча
-            // Капча будет позже, пока проходит тупая проверка- на пустое поле USER
-            // Совсем тупенькие боты - будут пытаться его заполнить
         }
     }
 
