@@ -32,7 +32,7 @@ $arIblocks = [
         'PROPS' => [
             ['NAME' => 'ФИО', 'CODE' => 'FIO'],
             ['NAME' => 'EMAIL', 'CODE' => 'EMAIL'],
-            ['NAME' => 'Привязка к элементу', 'CODE' => 'COMMENT_ELEMENT_ID'],
+            ['NAME' => 'Привязка к элементу', 'CODE' => 'COMMENTELEMENTID'],
         ]
     ],
 ];

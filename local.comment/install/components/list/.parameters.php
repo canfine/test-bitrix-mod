@@ -25,16 +25,6 @@ try {
         }
     }
 
-
-    $arIBlock = CIBlock::GetArrayByID($arCurrentValues["IBLOCK_ID"]);
-    $arIBlockType = CIBlockParameters::GetIBlockTypes();
-
-    $arIBlock = array();
-    $rsIBlock = CIBlock::GetList(Array("sort" => "asc"), Array("TYPE" => $arCurrentValues["IBLOCK_TYPE"], "ACTIVE" => "Y"));
-    while ($arr = $rsIBlock->Fetch()) {
-        $arIBlock[$arr["ID"]] = "[" . $arr["ID"] . "] " . $arr["NAME"];
-    }
-
     $rsProp = CIBlockProperty::GetList(Array("sort" => "asc", "name" => "asc"), Array("ACTIVE" => "Y", "IBLOCK_ID" => $arCurrentValues["IBLOCK_ID"]));
     while ($arr = $rsProp->Fetch()) {
         $arProperty[$arr["ID"]] = "[" . $arr["CODE"] . "] " . $arr["NAME"];
@@ -54,20 +44,6 @@ try {
     $arComponentParameters = [
         'GROUPS' => array(),
         'PARAMETERS' => [
-            'COMMENT_IBLOCK_TYPE' => [
-                'PARENT' => 'BASE',
-                'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_IBLOCK_TYPE'),
-                'TYPE' => 'LIST',
-                'VALUES' => $iblockTypes,
-                'DEFAULT' => '',
-                'REFRESH' => 'Y'
-            ],
-            'COMMENT_IBLOCK_CODE' => [
-                'PARENT' => 'BASE',
-                'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_IBLOCK_CODE'),
-                'TYPE' => 'LIST',
-                'VALUES' => $iblocksCode
-            ],
             "COMMENT_ELEMENT_ID" => [
 			"PARENT" => "BASE",
 			"NAME" => GetMessage("IBLOCK_ELEMENT_ID"),
@@ -79,7 +55,7 @@ try {
                 "NAME" => GetMessage("IBLOCK_TYPE"),
                 "TYPE" => "LIST",
                 "ADDITIONAL_VALUES" => "Y",
-                "VALUES" => $arIBlockType,
+                "VALUES" => $iblockTypes,
                 "REFRESH" => "Y",
             ] ,
             "IBLOCK_ID" => [
@@ -87,7 +63,7 @@ try {
                 "NAME" => GetMessage("IBLOCK_IBLOCK"),
                 "TYPE" => "LIST",
                 "ADDITIONAL_VALUES" => "Y",
-                "VALUES" => $arIBlock,
+                "VALUES" => "",
                 "REFRESH" => "Y",
             ],
             "PROPERTY_CODES" => [
@@ -114,43 +90,6 @@ try {
                 "NAME" => GetMessage("OK_TEXT"),
                 "TYPE" => "STRING",
             ],
-            /*
-              'SORT_FIELD1' => [
-              'PARENT' => 'BASE',
-              'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_SORT_FIELD1'),
-              'TYPE' => 'LIST',
-              'VALUES' => $sortFields
-              ],
-              'SORT_DIRECTION1' => [
-              'PARENT' => 'BASE',
-              'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_SORT_DIRECTION1'),
-              'TYPE' => 'LIST',
-              'VALUES' => $sortDirection
-              ],
-              'SORT_FIELD2' => [
-              'PARENT' => 'BASE',
-              'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_SORT_FIELD2'),
-              'TYPE' => 'LIST',
-              'VALUES' => $sortFields
-              ],
-              'SORT_DIRECTION2' => [
-              'PARENT' => 'BASE',
-              'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_SORT_DIRECTION2'),
-              'TYPE' => 'LIST',
-              'VALUES' => $sortDirection
-              ],
-              'TITLE' => Array(
-              'PARENT' => 'BASE',
-              'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_TITLE'),
-              'TYPE' => 'STRING',
-              ),
-              'TEXT' => Array(
-              'PARENT' => 'BASE',
-              'NAME' => Loc::getMessage('MAIN_BLOCK_TEAM_PARAMETERS_TEXT'),
-              'TYPE' => 'STRING',
-              ),
-             *
-             */
             'CACHE_TIME' => [
                 'DEFAULT' => 3600
             ],

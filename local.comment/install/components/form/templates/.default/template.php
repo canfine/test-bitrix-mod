@@ -8,17 +8,13 @@ $this->setFrameMode(false);
             <? echo $arResult["OK_MESSAGE"]; ?>
         </div>
     <? } ?>
-    <form name="iblock_add" action="<?= POST_FORM_ACTION_URI ?>" method="post" enctype="multipart/form-data">
+    <form id="algin-form" name="iblock_add" action="<?= POST_FORM_ACTION_URI ?>" method="post" enctype="multipart/form-data">
         <?= bitrix_sessid_post() ?>
-        <div class="send_form_field">
-            <strong>Как к Вам обращаться?</strong>
-            <input type="text" name="NAME" maxlength="255" value="" required>
-        </div>
-        <div class="send_form_field send_form_field_d">
-            <input type="text" name="USER" value="">
-        </div>
+
+
+
         <? foreach ($arResult['PROPERTY_DATAS'] as $field) { ?>
-            <div class="send_form_field">
+            <div class="send_form_field form-group">
                 <strong><? echo $field['NAME'] ?>:</strong>
                 <? if ($field['PROPERTY_TYPE'] == "F") { ?>
                     <? $APPLICATION->IncludeComponent("bitrix:main.file.input", "dragn_n_drop", Array(
@@ -40,9 +36,20 @@ $this->setFrameMode(false);
                 <? //echo $field['HINT'] ?>
             </div>
         <? } ?>
-        <div class="send_form_submit">
-            <input type="submit" value="Отправить">
+        <div class="send_form_field form-group">
+            <strong>Текст комментария</strong>
+            <input type="text" name="DETAIL_TEXT" maxlength="255" value="" required>
         </div>
+        <div class="send_form_submit form-group">
+            <input class="btn" type="submit" value="Отправить">
+        </div>
+        <?if ((!empty($_REQUEST['DETAIL_TEXT'])) && (!empty($_REQUEST['sessid'])) ){?>
+        <div class="send_form_field form-group">
+            <p>
+                <?=$this->arResult["OK_MESSAGE"]?>
+            </p>
+        </div>
+        <?}?>
     </form>
 </div>
 <!--

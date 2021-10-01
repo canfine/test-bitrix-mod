@@ -65,7 +65,7 @@ label {
     margin-top: 20px
 }
 
-.form-group p a {
+.form-group  {
     color: white
 }
 
@@ -80,9 +80,10 @@ label {
 
 .form-group input,
 .form-group textarea {
-    background-color: black;
+    background-color: wheat;
     border: 1px solid rgba(16, 46, 46, 1);
     border-radius: 12px
+
 }
 
 form {

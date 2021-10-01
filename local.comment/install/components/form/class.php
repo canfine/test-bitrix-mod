@@ -2,6 +2,7 @@
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
     die();
+
 // ??  $this->setFrameMode(false);
 use Bitrix\Main;
 use Bitrix\Main\Localization\Loc as Loc;
@@ -41,19 +42,22 @@ class CommentFormComponent extends CBitrixComponent {
     public function postAction() {
         // POST формы
         $this->arResult['ERROR'] = array();
-        if ((!empty($_REQUEST['NAME'])) && (!empty($_REQUEST['sessid'])) ) {
+        if ((!empty($_REQUEST['DETAIL_TEXT'])) && (!empty($_REQUEST['sessid']))) {
 
             //$el = new \CIBlockElement;
             $section_id = false;
             foreach ($this->arResult['PROPERTY_DATAS'] as $sendProps) {
                 $this->sendFields[$sendProps['CODE']] = strip_tags($_POST[$sendProps['CODE']]);
             }
+            $date = date("m.d.y");
+            $this->sendFields["COMMENTELEMENTID"] = $this->arParams["COMMENT_ELEMENT_ID"];
             $fields = [
                 "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
                 "PROPERTY_VALUES" => $this->sendFields,
-                "NAME" => strip_tags($_REQUEST['NAME']),
-        ];
-            $element= new CIBlockElement;
+                "NAME" => $date . " " . $this->arParams["COMMENT_ELEMENT_ID"],
+                "DETAIL_TEXT" => strip_tags($_POST["DETAIL_TEXT"]),
+            ];
+            $element = new CIBlockElement;
             if ($ID = $element->Add($fields)) {
                 array_push($this->arResult['ERROR'], "NOT_ERROR");
                 $this->arResult["OK_MESSAGE"] = $this->arParams['OK_TEXT'];
@@ -100,7 +104,10 @@ class CommentFormComponent extends CBitrixComponent {
                         Array("ACTIVE" => "Y", "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],)
         );
         while ($prop_fields = $properties->GetNext()) {
-            array_push($this->arResult['PROPERTY_DATAS'], $prop_fields);
+
+            if (in_array($prop_fields["CODE"], $this->arParams['PROPERTY_CODES'])) {
+                array_push($this->arResult['PROPERTY_DATAS'], $prop_fields);
+            }
         }
     }
 

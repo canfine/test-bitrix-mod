@@ -46,6 +46,12 @@ $arComponentParameters = [
             "MULTIPLE" => "Y",
             "VALUES" => $arProperty,
         ] ,
+        "COMMENT_ELEMENT_ID" => [
+			"PARENT" => "BASE",
+			"NAME" => GetMessage("IBLOCK_ELEMENT_ID"),
+			"TYPE" => "STRING",
+			"DEFAULT" => '={$_REQUEST["ELEMENT_ID"]}',
+		] ,
         "MAIL_TO" => [
             "PARENT" => "BASE",
             "NAME" => GetMessage("SEND_TO_MAIL"),
